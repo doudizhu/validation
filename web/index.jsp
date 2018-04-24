@@ -20,8 +20,8 @@
           rules:{
             // 配置具体的验证规则
             email:{
-              // 如果有参数则"冒号"后面写参数,如果没有则为true
-              required:true,
+              // 如果有参数则"冒号"后面写参数,如果没有则为true,多个参数调用数组
+//              required:true,
               email:true,
             },
             age:{
@@ -29,8 +29,20 @@
               number:true,
               min:18,
             },
+            password:{
+              required:true,
+              rangelength:[6,12],
+            },
+            confirm:{
+              equalTo:'#password',
+            },
+            address:{
+              required:true,
+            },
+            like:{
+              required:true,
+            },
           }
-
         })
       })
     </script>
@@ -46,7 +58,30 @@
       </div>
       <div>
         <label>age：</label>
-        <input name="age">
+        <input name="age" size="2">
+      </div>
+      <div>
+        <label>password：</label>
+        <input name="password" type="password" id="password">
+      </div>
+      <div>
+        <label>confirm：</label>
+        <input name="confirm" type="password">
+      </div>
+      <div>
+        <label>address：</label>
+        <select name="address">
+          <option value=""><-- 请选择 --></option>
+          <option value="1">北京</option>
+          <option value="2">上海</option>
+          <option value="3">广州</option>
+        </select>
+      </div>
+      <div>
+        <label>like：</label>
+        看书：<input type="checkbox" name="like" value="看书">
+        上网：<input type="checkbox" name="like" value="上网">
+        旅游：<input type="checkbox" name="like" value="旅游">
       </div>
       <input type="submit" value="提交">
     </form>
