@@ -17,12 +17,19 @@
         $('#form').validate({
           debug:false, // 定义debug模式，这样做不会提交
           // jquery validate可以采用name来确定验证的dom对象（jquery选择器:标签、class、id）
+          onkeyup:false,// 是否检测按钮抬起事件（目前值为true时会报错，所以如果检测直接不写此属性）
           rules:{
             // 配置具体的验证规则
             email:{
               // 如果有参数则"冒号"后面写参数,如果没有则为true,多个参数调用数组
 //              required:true,
               email:true,
+              // 仅仅只需要配置验证的url地址即可
+              remote:{
+                url:'servlet/AjaxServlet',
+                // post请求再ie中不会有缓存问题（即相同参数请求，不会被重复发出）
+                type:'post',
+              }
             },
             age:{
               required:true,
@@ -54,7 +61,7 @@
     <form id="form" action="#" method="get">
       <div>
         <label>email：</label>
-        <input name="email">
+        <input name="email" value="">
       </div>
       <div>
         <label>age：</label>
