@@ -12,6 +12,16 @@
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script>
+      $.validator.addMethod('fileExt',function (value,element,params) {
+        // console.info('value:'+value+',element:'+element+',params:'+params);
+        // return false
+        var reg = new RegExp('\.('+params+'])$','i');
+        return reg.test(value);
+      },
+      // '文件类型出错！'
+        $.validator.format('文件类型必须为{0}')
+      )
+
       /* 所有的jquery插件都遵循了一定的流程，把dom对象转化为jqueryd对象，然后再做对应的操作 */
       $(function(){
         $('#form').validate({
@@ -48,6 +58,12 @@
             },
             like:{
               required:true,
+            },
+            image:{
+              required:true,
+              // 配置调用自定义的调用方法
+//              fileExt:['jpg','gif','png'],
+              fileExt:'jpe?g|gif|png', // 也可 fileExt:'jpeg|jpg|gif|png'
             },
           }
         })
@@ -89,6 +105,10 @@
         看书：<input type="checkbox" name="like" value="看书">
         上网：<input type="checkbox" name="like" value="上网">
         旅游：<input type="checkbox" name="like" value="旅游">
+      </div>
+      <div>
+        <label>image：</label>
+        <input name="image" type="file">
       </div>
       <input type="submit" value="提交">
     </form>
