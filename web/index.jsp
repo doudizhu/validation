@@ -38,6 +38,9 @@
           // 用来存储错误消息的标签
           errorElement:'span',
           errorPlacement:function (span,element) {
+            // 应该把原来的span删除掉
+            $(element).siblings('span').remove();
+            // 再追加的时候应该吧ok样式删除掉
             $(element).parent().append(span);
           },
           // 方式一：如果是字符串，则样式会赋值到errorElement指定的标签中
