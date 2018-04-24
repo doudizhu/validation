@@ -35,6 +35,17 @@
           debug:false, // 定义debug模式，这样做不会提交
           // jquery validate可以采用name来确定验证的dom对象（jquery选择器:标签、class、id）
           onkeyup:false,// 是否检测按钮抬起事件（目前值为true时会报错，所以如果检测直接不写此属性）
+          // 用来存储错误消息的标签
+          errorElement:'span',
+          errorPlacement:function (span,element) {
+            $(element).parent().append(span);
+          },
+          // 方式一：如果是字符串，则样式会赋值到errorElement指定的标签中
+//          success:'ok',
+          // 方式二：如果是一个回调函数,则将标签作为唯一的参数
+          success:function (span) {
+              $(span).attr('class','ok')
+          },
           rules:{
             // 配置具体的验证规则
             email:{
