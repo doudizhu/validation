@@ -15,11 +15,18 @@
       $.validator.addMethod('fileExt',function (value,element,params) {
         // console.info('value:'+value+',element:'+element+',params:'+params);
         // return false
-        var reg = new RegExp('\.('+params+'])$','i');
+        var reg = new RegExp('\.('+params+')$','i');
         return reg.test(value);
       },
       // '文件类型出错！'
-        $.validator.format('文件类型必须为{0}')
+        $.validator.format('文件类型必须为{0}') // 失去焦点后才开始校验
+      )
+
+      $.validator.addMethod('mobileExt',function (value,element,params) {
+          var reg = new RegExp(params+'$');
+          return reg.test(value);
+      },
+        '请正确填写您的手机号码'
       )
 
       /* 所有的jquery插件都遵循了一定的流程，把dom对象转化为jqueryd对象，然后再做对应的操作 */
@@ -65,7 +72,38 @@
 //              fileExt:['jpg','gif','png'],
               fileExt:'jpe?g|gif|png', // 也可 fileExt:'jpeg|jpg|gif|png'
             },
-          }
+            mobile:{
+              mobileExt:'^1\\d{10}', // *** 此处\d前需加"\"进行转义，或用[0-9]代替
+            }
+          },
+          // 本地化错误消息
+          messages:{
+            email:{
+              email:'邮箱格式不正确',
+              remote:'该用户已经被占用',
+            },
+            age:{
+              required:'年龄不能为空',
+              number:'年龄必须为数字',
+              min:'年龄必须在18岁以上',
+            },
+            password:{
+              required:'密码必填',
+              rangelength:$.validator.format('密码的长度必须为{0}-{1}之间'),
+            },
+            confirm:{
+              equalTo:'密码不一致',
+            },
+            address:{
+              required:'请选择地址',
+            },
+            like:{
+              required:'必须选择一个爱好',
+            },
+            image:{
+              required:'请选择要上传的文件',
+            },
+          },
         })
       })
     </script>
@@ -109,6 +147,10 @@
       <div>
         <label>image：</label>
         <input name="image" type="file">
+      </div>
+      <div>
+        <label>mobile：</label>
+        <input name="mobile">
       </div>
       <input type="submit" value="提交">
     </form>
